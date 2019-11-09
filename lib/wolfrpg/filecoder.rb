@@ -156,15 +156,23 @@ module WolfRpg
     end
 
     def write_string(str)
-	  str = str.encode(Encoding::WINDOWS_31J, Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => "?")
+      str = str.encode(Encoding::WINDOWS_31J, Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => "?")
       write_int(str.bytesize + 1)
       write(str)
       write_byte(0)
     end
     
     def write_stringlocale(str)
-      #16:42 2019年11月1日 WINDOWS_31J改为GBK write_string用于从dump里的txt文件中读取汉化后的中文写入到map文件，让它用GBK读取才能是简体中文
-	  str = str.encode($localecode, Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => "?")
+      #WINDOWS_31J改为GBK
+      #之所以必须改成GBK而不能用WINDOWS_31J里的日文汉字，是因为WINDOWS_31J所含汉字数量远少于GBK，
+      #比如简体的“头”“开”这两个简体字在WINDOWS_31J里没有
+      #而GBK里基本包含了中、日的所有汉字和假名，但没有日文的・符号，只有中文的·符号。
+      #而游戏数据文件中文本内容的路径文件名可能含有・符号等，所以不能转码、只转码可翻译内容
+
+      #write_string用于将内存里utf-8编码的内容写入到map文件，map文件是非unicode的简体中文GBK编码，所以可翻译内容要用GBK编码，
+      #这样读出来才不乱码（前提是game.dat已经设置为简体中文）
+
+      str = str.encode($localecode, Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => "?")
       write_int(str.bytesize + 1)
       write(str)
       write_byte(0)
