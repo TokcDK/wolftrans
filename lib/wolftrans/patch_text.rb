@@ -100,7 +100,7 @@ module WolfTrans
             # Parse the patch version
             parse_instruction(instruction, 'WOLF TRANS PATCH FILE VERSION') do |args|
               unless txt_version == nil
-                raise "two version strings in file (line #{line_num})"
+                raise "two version strings in file (line #{line_num} #{filename})"
               end
               txt_version = Version.new(str: args.first)
               if txt_version > TXT_VERSION
@@ -121,7 +121,7 @@ module WolfTrans
             # Now parse the instructions
             parse_instruction(instruction, 'BEGIN STRING') do |args|
               unless state == :expecting
-                raise "began another string without ending previous string (line #{line_num})"
+                raise "began another string without ending previous string (line #{line_num} #{filename})"
               end
               state = :reading_original
               original_string = ''
@@ -132,9 +132,9 @@ module WolfTrans
 
             parse_instruction(instruction, 'END STRING') do |args|
               if state == :expecting
-                raise "ended string without a begin (line #{line_num})"
+                raise "ended string without a begin (line #{line_num} #{filename})"
               elsif state == :reading_original
-                raise "ended string without a translation block (line #{line_num})"
+                raise "ended string without a translation block (line #{line_num} #{filename})"
               end
               state = :expecting
               new_contexts = []
@@ -142,10 +142,10 @@ module WolfTrans
 
             parse_instruction(instruction, 'CONTEXT') do |args|
               if state == :expecting
-                raise "context outside of begin/end block (line #{line_num})"
+                raise "context outside of begin/end block (line #{line_num} #{filename})"
               end
               if args.empty?
-                raise "no context string provided in context line (line #{line_num})"
+                raise "no context string provided in context line (line #{line_num} #{filename})"
               end
 
               # After a context, we're no longer reading the original text.
@@ -153,7 +153,7 @@ module WolfTrans
               begin
                 new_context = Context.from_string(args.shift)
               rescue => e
-                raise e, "#{e} (line #{line_num})", e.backtrace
+                raise e, "#{e} (line #{line_num} #{filename})", e.backtrace
               end
               # Append context if translated_string is empty, since that means
               # no translation was given.
@@ -212,7 +212,7 @@ module WolfTrans
             # Parse text
             if state == :expecting
               unless line.empty?
-                raise "stray text outside of begin/end block (line #{line_num})"
+                raise "stray text outside of begin/end block (line #{line_num} #{filename} #{filename})"
               end
             elsif state == :reading_original
               original_string << line << "\n"

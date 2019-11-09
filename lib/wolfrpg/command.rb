@@ -8,10 +8,11 @@ module WolfRpg
     attr_reader :args
     attr_reader :string_args
     attr_reader :indent
+    attr_accessor :needtrans
 
     #############################
     # Command class definitions #
-
+    @needtrans=0
     class Blank < Command
     end
 
@@ -217,8 +218,9 @@ module WolfRpg
         end
         coder.write_byte(@flags)
         coder.write_int(@route.size)
+		i=0
         @route.each do |cmd|
-          cmd.dump(coder)
+		  cmd.dump(coder)
         end
       end
     end
@@ -406,10 +408,14 @@ module WolfRpg
       end
       coder.write_byte(indent)
       coder.write_byte(@string_args.size)
-      @string_args.each do |arg|
-        coder.write_string(arg)
+	  @string_args.each do |arg|
+        if @needtrans == 1
+          # printf("%s,%s,%s,%s\n", cid,indent,@args,arg);sleep(1)
+          coder.write_stringlocale(arg)
+        else
+          coder.write_string(arg)
+	    end
       end
-
       dump_terminator(coder)
     end
 

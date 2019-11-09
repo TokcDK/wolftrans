@@ -36,8 +36,8 @@ module WolfTrans
             load_map(filename) if extension == '.mps'
           when 'basicdata'
             if basename_downcase == 'game.dat'
-              @game_dat_filename = 'Data/BasicData/Game.dat'
-              load_game_dat(filename)
+              # @game_dat_filename = 'Data/BasicData/Game.dat'
+              # load_game_dat(filename)
             elsif extension == '.project'
               next if basename_downcase == 'sysdatabasebasic.project'
               dat_filename = Util.join_path_nocase(parent_path, "#{basename_noext}.dat")
@@ -51,6 +51,7 @@ module WolfTrans
       end
 
       # Game.dat is in a different place on older versions
+=begin
       unless @game_dat
         Dir.entries(@game_dir).each do |entry|
           if entry.downcase == 'game.dat'
@@ -60,6 +61,7 @@ module WolfTrans
           end
         end
       end
+=end      
     end
 
     # Apply the patch to the files in the game path and write them to the
@@ -97,6 +99,7 @@ module WolfTrans
           type.data.each_with_index do |datum, datum_index|
             datum.each_translatable do |str, field|
               context = Context::Database.from_data(db_name, type_index, type, datum_index, datum, field)
+              # p str, context;sleep(0.5)
               yield_translation(str, context) do |newstr|
                 datum[field] = newstr
               end
@@ -117,8 +120,8 @@ module WolfTrans
       @common_events.dump("#{out_data_dir}/BasicData/CommonEvent.dat")
 
       # Patch Game.dat
-      patch_game_dat
-      @game_dat.dump("#{out_dir}/#{@game_dat_filename}")
+      # patch_game_dat
+      # @game_dat.dump("#{out_dir}/#{@game_dat_filename}")
 
       # Copy image/sound/music files
       Dir.entries(@game_data_dir).each do |entry|
@@ -134,23 +137,23 @@ module WolfTrans
         end
 
         # Find the corresponding folder in the patch
-        if @patch_data_dir && (asset_entry = Util.join_path_nocase(@patch_data_dir, entry))
-          copy_data_files("#{@patch_data_dir}/#{asset_entry}", DATA_FILE_EXTENSIONS, out_path)
-        end
+        # if @patch_data_dir && (asset_entry = Util.join_path_nocase(@patch_data_dir, entry))
+          # copy_data_files("#{@patch_data_dir}/#{asset_entry}", DATA_FILE_EXTENSIONS, out_path)
+        # end
 
         # Copy the original game files
-        copy_data_files(path, DATA_FILE_EXTENSIONS, out_path)
+        # copy_data_files(path, DATA_FILE_EXTENSIONS, out_path)
       end
 
       # Copy fonts
-      if @patch_data_dir
-        copy_data_files(@patch_data_dir, ['ttf','ttc','otf'], out_data_dir)
-      end
-      copy_data_files(@game_data_dir, ['ttf','ttc','otf'], out_data_dir)
+      # if @patch_data_dir
+        # copy_data_files(@patch_data_dir, ['ttf','ttc','otf'], out_data_dir)
+      # end
+      # copy_data_files(@game_data_dir, ['ttf','ttc','otf'], out_data_dir)
 
       # Copy remainder of files in the base patch/game dirs
-      copy_files(@patch_assets_dir, out_dir)
-      copy_files(@game_dir, out_dir)
+      # copy_files(@patch_assets_dir, out_dir)
+      # copy_files(@game_dir, out_dir)
     end
 
     private
@@ -204,6 +207,7 @@ module WolfTrans
           datum.each_translatable do |str, field|
             context = Context::Database.from_data(db_name, type_index, type, datum_index, datum, field)
             @strings[str][context] ||= Translation.new(patch_filename)
+            # p "xxxxxxxxxxxx",str,context,@strings[str][context] if str.include? "記" 
           end
         end
       end
@@ -249,11 +253,13 @@ module WolfTrans
       when WolfRpg::Command::Message
         yield_translation(command.text, context) do |str|
           command.text = str
+          command.needtrans=1
         end
       when WolfRpg::Command::Choices
         command.text.each_with_index do |text, i|
           yield_translation(text, context) do |str|
             command.text[i] = str
+            command.needtrans=1
           end
         end
       when WolfRpg::Command::StringCondition
@@ -261,16 +267,19 @@ module WolfTrans
           next if arg.empty?
           yield_translation(arg, context) do |str|
             command.string_args[i] = str
+            command.needtrans=1
           end
         end
       when WolfRpg::Command::SetString
         yield_translation(command.text, context) do |str|
           command.text = str
+          command.needtrans=1
         end
       when WolfRpg::Command::Picture
         if command.type == :text
           yield_translation(command.text, context) do |str|
             command.text = str
+            command.needtrans=1
           end
         end
       end
@@ -298,7 +307,9 @@ module WolfTrans
     def yield_translation(string, context)
       return unless Util.translatable? string
       if @strings.include? string
-        str = @strings[string][context].string
+        # p string
+        str = string
+        str = @strings[string][context].string if !@strings[string][context].string.empty?
         yield str if Util.translatable? str
       end
     end

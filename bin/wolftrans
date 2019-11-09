@@ -3,11 +3,26 @@ $:.unshift File.expand_path('../../lib', __FILE__)
 
 require 'wolftrans'
 
-if ARGV.size != 3
-  STDERR.puts "usage: wolftrans game_dir patch_dir out_dir"
-  STDERR.puts "WARNING: out_dir will be DELETED. Use caution."
+if ARGV.size < 3
+  STDERR.puts "usage: wolftrans game_dir patch_dir out_dir [localecode]"
+  STDERR.printf("example: wolftrans d:\\hanhua d:\\hanhua\\patch d:\\hanhua\\output GBK\n")
+  STDERR.printf("\n")
+  STDERR.puts "localecode: default(not set) for English"
+  STDERR.puts "Set Encoding CodePage for other languages."
+  STDERR.puts "eg. GBK for Simplified Chinese, CP950 for Traditional Chinese"
+  STDERR.printf("\n")
+  STDERR.puts "!!!WARNING!!!: out_dir will be DELETED. Use caution."
   exit 1
 end
 
+#eval
+if ARGV[3]==nil
+  $localecode=Encoding::WINDOWS_31J
+else
+  $localecode=eval("Encoding::"+ARGV[3])
+end
+p $localecode
+
 patch = WolfTrans::Patch.new(ARGV[0], ARGV[1])
 patch.apply(ARGV[2])
+

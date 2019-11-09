@@ -156,7 +156,15 @@ module WolfRpg
     end
 
     def write_string(str)
-      str = str.encode(Encoding::WINDOWS_31J, Encoding::UTF_8)
+	  str = str.encode(Encoding::WINDOWS_31J, Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => "?")
+      write_int(str.bytesize + 1)
+      write(str)
+      write_byte(0)
+    end
+    
+    def write_stringlocale(str)
+      #16:42 2019年11月1日 WINDOWS_31J改为GBK write_string用于从dump里的txt文件中读取汉化后的中文写入到map文件，让它用GBK读取才能是简体中文
+	  str = str.encode($localecode, Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => "?")
       write_int(str.bytesize + 1)
       write(str)
       write_byte(0)

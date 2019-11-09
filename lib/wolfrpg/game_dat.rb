@@ -66,7 +66,8 @@ module WolfRpg
 
         coder.write_byte_array(@unknown1)
         coder.write_int(@file_version)
-        coder.write_string(@title)
+        #coder.write_string(@title)
+        coder.write_stringlocale(@title)
         coder.write_string(MAGIC_STRING)
         coder.write_byte_array(@unknown2)
         coder.write_string(@font)

@@ -259,12 +259,13 @@ module WolfRpg
         @fields = fields
         @int_values = Array.new(fields.select(&:int?).size)
         @string_values = Array.new(fields.select(&:string?).size)
-
         @int_values.each_index do |i|
           @int_values[i] = coder.read_int
         end
         @string_values.each_index do |i|
-          @string_values[i] = coder.read_string
+          @string_values[i] = [nil, 0]
+          @string_values[i][0] = coder.read_string
+          @string_values[i][1] = 0
         end
       end
 
@@ -272,15 +273,19 @@ module WolfRpg
         @int_values.each do |i|
           coder.write_int(i)
         end
-        @string_values.each do |i|
-          coder.write_string(i)
+        @string_values.each_with_index  do |content, i|
+          if content[1] == 1
+            coder.write_stringlocale(content[0])
+          else
+            coder.write_string(content[0])
+          end
         end
       end
 
       def [](key)
         if key.is_a? Field
           if key.string?
-            @string_values[key.index]
+            @string_values[key.index][0]
           else
             @int_values[key.index]
           end
@@ -294,7 +299,8 @@ module WolfRpg
       def []=(key, value)
         if key.is_a? Field
           if key.string?
-            @string_values[key.index] = value
+            @string_values[key.index][0] = value
+            @string_values[key.index][1] = 1
           else
             @int_values[key.index] = value
           end
@@ -306,10 +312,33 @@ module WolfRpg
       end
 
       def each_translatable
+        # p self
         @fields.each do |field|
           next unless field.string? && field.type == 0
           value = self[field]
-          yield [value, field] unless value.empty? || value.include?("\n")
+          # p value,field if !value.empty? and value.include? "記"
+=begin
+"中学校の生徒手帳。\r\n\\cdb[0:0:0]の名前が記されている。"
+#<WolfRpg::Database::Field:0x00000000058df338 @name="説明文[2行まで可]", @type=0
+, @unknown1="", @string_args=[], @args=[], @default_value=0, @indexinfo=2001>
+"記録"
+#<WolfRpg::Database::Field:0x0000000005a63600 @name="[ﾒﾆｭｰ]セーブ", @type=0, @un
+known1="", @string_args=[], @args=[], @default_value=0, @indexinfo=2003>
+"記録する場所を選んで下さい"
+#<WolfRpg::Database::Field:0x0000000005a60770 @name="[セーブ]セーブ時メッセージ"
+, @type=0, @unknown1="", @string_args=[], @args=[], @default_value=0, @indexinfo
+=2027>
+"開始する記録を選んで下さい"
+#<WolfRpg::Database::Field:0x0000000005a60590 @name="[セーブ]ロード時メッセージ"
+, @type=0, @unknown1="", @string_args=[], @args=[], @default_value=0, @indexinfo
+=2028>
+"記録"
+#<WolfRpg::Database::Field:0x0000000005a60310 @name="[セーブ]セーブデータ名称",
+@type=0, @unknown1="", @string_args=[], @args=[], @default_value=0, @indexinfo=2
+029>
+=end
+          # yield [value, field] unless value.empty? || value.include?("\n")
+          yield [value, field] unless value.empty? 
         end
       end
     end
