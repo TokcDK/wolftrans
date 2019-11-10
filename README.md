@@ -11,7 +11,7 @@ WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
     【はじめから】
     > CONTEXT MPS:Map000/events/0/pages/1/36/Picture < UNTRANSLATED
     > END STRING
-翻译者只需要将翻译后的内容填入最后一个> CONTEXT 和> END STRING之间即可
+> BEGIN STRING和> CONTEXT之间的日语原文，不要动。翻译者只需要将译文填入最后一个> CONTEXT 和> END STRING之间即可
 
     > BEGIN STRING
     【はじめから】
@@ -80,7 +80,8 @@ wolftrans的用法和参数如下:
     > END STRING
 就能实现同一原文不同译文。
 
-
+另外，本软件生成的可翻译txt的内容不一定是必须要翻译的。ADV/AVG游戏一般不需要翻译RPG游戏特有的升级、战斗等相关内容，如这些文件：
+    "D:\transwork\patch\Patch\dump\db\DataBase\戦闘コマンド.txt"
 
 ## 声明
 作者对使用此软件造成的任何损失概不负责。为了避免意外，防止翻译成果付之东流，请经常备份`patch_dir`里的内容。
