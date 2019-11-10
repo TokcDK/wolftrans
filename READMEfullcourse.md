@@ -70,6 +70,7 @@ Wolf RPG是很流行的自制游戏引擎，可以制作RPG/角色扮演游戏�
         > BEGIN STRING
         【はじめから】
         > CONTEXT MPS:Map000/events/0/pages/1/36/Picture < UNTRANSLATED
+        
         > END STRING
     \> BEGIN STRING和> CONTEXT之间的日语原文，不要动。翻译者只需要将译文填入最后一个> CONTEXT 和> END STRING之间即可
 
