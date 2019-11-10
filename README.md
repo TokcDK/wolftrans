@@ -82,6 +82,7 @@ wolftrans的用法和参数如下:
 就能实现同一原文不同译文。
 
 另外，本软件生成的可翻译txt的内容不一定是必须要翻译的。ADV/AVG游戏一般不需要翻译RPG游戏特有的升级、战斗等相关内容，如这些文件：
+
     "D:\transwork\patch\Patch\dump\db\DataBase\戦闘コマンド.txt"
 
 ## 声明
