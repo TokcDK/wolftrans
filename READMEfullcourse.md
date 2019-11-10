@@ -65,7 +65,7 @@ Wolf RPG是很流行的自制游戏引擎，可以制作RPG/角色扮演游戏�
    
 3. 用文本编辑软件（如Notepad++）打开txt文件，进行翻译工作。如`patch_dir`\Patch\dump\mps\Map000.txt
 
-    WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
+   WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
 
         > BEGIN STRING
         【はじめから】
@@ -73,7 +73,7 @@ Wolf RPG是很流行的自制游戏引擎，可以制作RPG/角色扮演游戏�
         
         > END STRING
 
-    \> BEGIN STRING和> CONTEXT之间的日语原文，不要动。翻译者只需要将译文填入最后一个> CONTEXT 和> END STRING之间即可
+   \> BEGIN STRING和> CONTEXT之间的日语原文，不要动。翻译者只需要将译文填入最后一个> CONTEXT 和> END STRING之间即可
 
         > BEGIN STRING
         【はじめから】
