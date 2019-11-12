@@ -73,7 +73,7 @@ Data文件夹下的就是游戏数据文件，一个典型的游戏数据目录�
         
 3、再次运行wolftrans（命令和步骤1完全一样）。程序将读取翻译修改后的txt文件内容，将其整合后重新生成游戏数据文件到`out_dir`。如
 
-  ruby d:\wolftrans\bin\wolftrans "D:\gamename" "D:\transwork\patch" "D:\transwork\output" "GBK"
+    ruby d:\wolftrans\bin\wolftrans "D:\gamename" "D:\transwork\patch" "D:\transwork\output" "GBK"
  
 **警告：**  
 **软件每次运行都会先清空`out_dir`的所有内容，请小心**  
