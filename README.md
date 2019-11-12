@@ -1,7 +1,7 @@
 # Wolf Trans
 (English description is *Below*, please pull down)
 
-* 以下为Wolf Trans软件自身说明。Wolf RPG游戏汉化翻译全流程说明请看这里[READMEfullcourse](READMEfullcourse.md)
+* 以下为Wolf Trans软件自身说明。Wolf RPG游戏汉化翻译全流程说明请看这里[READMEfullcourse.md](READMEfullcourse.md)
 
 Wolf Trans是一个Wolf RPG游戏的辅助翻译工具，用于减少汉化/本地化Wolf RPG游戏的难度和工作量。它将游戏数据文件(.project, .dat, .mps)中所有可翻译的文字内容抽出为txt文本文件，翻译者翻译编辑txt文件后，它再将翻译后的文字整合进数据文件重新输出(.project, .dat, .mps)。
 
@@ -34,7 +34,7 @@ wolftrans的用法和参数如下:
 
     wolftrans game_dir patch_dir out_dir [localecode]
 
-`game_dir`是你要翻译的游戏的文件夹，要求游戏数据文件是非加密和不打包的，即是.project, .dat, .mps文件而不是.wolf文件。
+`game_dir`是你要翻译的原游戏文件夹，要求游戏数据文件是非加密和不打包的，即是.project, .dat, .mps文件而不是.wolf文件。
 
 `patch_dir`用于存放可翻译文本文件，如果`patch_dir`不存在，它将自动建立并从`game_dir`中抽出的可翻译文本生成txt文件存于此文件夹。
 
@@ -53,6 +53,18 @@ wolftrans的用法和参数如下:
     ruby d:\wolftrans\bin\wolftrans "D:\gamename" "D:\transwork\patch" "D:\transwork\output" "GBK"
 
 ## 提示
+一个典型的`patch_dir`文件夹结构如下：
+
+    ─patch
+        ├─Assets
+        └─Patch
+            └─dump
+                ├─common
+                ├─db
+                │  ├─CDataBase
+                │  └─DataBase
+                └─mps
+需要翻译的是里面的txt文件
 
 本软件会将相同的文字内容抽出为同一个翻译段，并将它放在首次出现的地方对应的txt文件中。比如游戏数据中多个地方都有“はい”这句话，抽出的翻译段如下，存于`patch_dir`\Patch\dump\mps\Map000.txt 中
 
@@ -86,7 +98,7 @@ wolftrans的用法和参数如下:
     "D:\transwork\patch\Patch\dump\db\DataBase\戦闘コマンド.txt"
 
 ## 声明
-作者对使用此软件及产生的后果概不负责。为了避免意外，防止翻译成果付之东流，请经常备份`patch_dir`里的内容。
+作者对使用此软件及产生的后果概不负责。为了避免意外，防止翻译成果付诸东流，建议请经常备份`patch_dir`里的内容。
 
 ----------------------------------------------------------------------------------------------------
 # Wolf Trans
@@ -125,7 +137,7 @@ Currently, Wolf Trans can be invoked with the command line:
 
     wolftrans game_dir patch_dir out_dir [localecode]
 
-`game_dir` is the game's folder you want to translate. The game data files should be unencrypted and unpackaged, namely .project, .dat, .mps file but not .wolf file.
+`game_dir` is the original game's folder you want to translate. The game data files should be unencrypted and unpackaged, namely .project, .dat, .mps file but not .wolf file.
 
 `patch_dir` is used to save translatable text file. If `patch_dir` does not exist, it will be automatically generated with the text contained in the data files of the game in `game_dir`. 
 
