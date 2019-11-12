@@ -15,9 +15,9 @@ Wolf RPG是很流行的自制游戏引擎，可以制作RPG/角色扮演游戏�
 
 如果touhouSE不能正常解包，可以尝试其他工具，请参考https://www.crowsong.xyz/148.html
 
-一个典型的游戏数据目录结构如下：
+Data文件夹下的就是游戏数据文件，一个典型的游戏数据目录结构如下：
 
-    ─data
+    ─Data
         ├─BasicData
         ├─BattleEffect
         ├─BGM
@@ -77,7 +77,7 @@ Wolf RPG是很流行的自制游戏引擎，可以制作RPG/角色扮演游戏�
  
 **警告：**  
 **软件每次运行都会先清空`out_dir`的所有内容，请小心**  
-**为了避免意外，防止翻译成果付之东流，请经常备份`patch_dir`里的内容。比如在再次运行wolftrans根据已翻译txt文件重新生成游戏数据文件前**  
+**为了避免意外，防止翻译成果付诸东流，请经常备份`patch_dir`里的内容。比如在再次运行wolftrans根据已翻译txt文件重新生成游戏数据文件前**  
 **作者对使用此软件造成的任何损失概不负责**  
 
 4、复制`out_dir`下Data\BasicData\和Data\MapData\文件夹的内容到新游戏文件夹`gamelocale_dir`下Data\下的相应文件夹。如
