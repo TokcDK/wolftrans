@@ -6,15 +6,16 @@ Wolf RPG是很流行的自制游戏引擎，可以制作RPG/角色扮演游戏�
 * 安装touhouSE。下载后解压到文件夹https://resemblances.click3.org/product_list/index.cgi/detail/61
 * 安装ruby。下载后按提示安装https://rubyinstaller.org/downloads/
 * 安装Wolf Trans。下载后解压到文件夹https://github.com/springsin0/wolftrans
-* 安装要翻译的日文游戏。通常是下载后解压到文件夹。
+* 安装要翻译的日文游戏。通常是下载后解压到文件夹。注意不要转码。
 
 ## 二、解包
-用Wolf RPG Editor制作的日文游戏的数据通常是加密打包成.wolf文件发布的，可能有一个（游戏目录下data.wolf)或多个(游戏目录下Data\\*.wolf)，需要先解包。
+打开原游戏文件夹（以下称`game_dir`），如果没有Data文件夹而是有一个Data.wolf文件，或者虽然有Data文件夹但Data下仍有.wolf文件，则游戏数据是加密打包的，需要先解包。
 
-打开touhouSE安装的文件夹，将.wolf文件拖拽到touhouSE.exe上，将在此文件夹下生成data文件夹，里面即是解包后的游戏数据。注意如果文件名里有日文，将会是乱码，比如这样 _娫堘偄扵偟  塀偟恄俀.png_ 。这没关系，就是要乱码才对，千万不要转码，否则反而会出错。同样的，下述操作打开各种软件如Wolf RPG Editor等时也不要转系统区域编码或者加载区域模拟软件等。
+将touhouSE文件夹内的touhouSE.exe复制一份到游戏文件夹，将然后将.wolf文件拖拽到touhouSE.exe上，如果解密正常将在Data文件夹下生成相应的文件夹和解包后的游戏数据。注意如果文件名里有日文，将会是乱码，比如这样 _娫堘偄扵偟  塀偟恄俀.png_ 。没关系，就是要乱码才对，千万不要转码，否则反而会出错。同样的，下述操作打开各种软件如Wolf RPG Editor等时也不要转系统区域编码或者加载区域模拟软件等。
 
-如果是一个.wolf文件，此时data文件夹下即是游戏运行所需要的所有数据文件；如果是多个.wolf文件，还需要将游戏安装的文件夹下Data\下的其他文件夹复制到这里的data文件夹下来。一个典型的游戏数据目录结构如下：
+如果touhouSE不能正常解包，可以尝试其他工具，请参考https://www.crowsong.xyz/148.html
 
+一个典型的游戏数据目录结构如下：
     ─data
         ├─BasicData
         ├─BattleEffect
@@ -27,9 +28,9 @@ Wolf RPG是很流行的自制游戏引擎，可以制作RPG/角色扮演游戏�
         └─SystemFile
 
 ## 三、测试环境准备
-1. 删除Wolf RPG Editor文件夹下原有的Data文件夹，然后将touhouSE文件夹下的data文件夹复制到Wolf RPG Editor文件夹
+1. 将Wolf RPG Editor文件夹复制一份作为新游戏文件夹（以下称为`gamelocale_dir`）。打开新游戏文件夹，删除里面的Data文件夹，然后将原游戏文件夹`game_dir`下的Data文件夹复制过来。如果Data文件夹里有.wolf文件请将其删除。
 
-2. 运行Wolf RPG Editor(Editor.exe)，打开游戏基本设定（ゲーム設定-->ゲーム基本設定を開く）
+2. 运行Editor.exe，打开游戏基本设定（ゲーム設定-->ゲーム基本設定を開く）
    ![](ScreenShot/setting0.png)
 
    在如下图三个地方修改游戏标题、字体、语言编码。字体要写准确的中文或英文名称，比如"楷体"或"KaiTi"，"黑体"或"SimHei"。如不填则使用系统默认字体，简体中文系统是宋体。语言编码则选择目标翻译语言，如"中国語/簡体字"
@@ -41,75 +42,63 @@ Wolf RPG是很流行的自制游戏引擎，可以制作RPG/角色扮演游戏�
 ![](ScreenShot/run.png)
 
 ## 四、使用WolfTrans翻译
-1. 建立一个文件夹`work_dir`，将已经解包的游戏数据文件的Data\BasicData\和Data\MapData\ 文件夹复制到`work_dir`。例如：
+wolftrans的用法和参数如下:
 
-        xcopy "D:\WOLF_RPG_Editor2\Data\BasicData" "D:\transwork\Data\BasicData" /I
-        xcopy "D:\WOLF_RPG_Editor2\Data\MapData" "D:\transwork\Data\MapData" /I
+    wolftrans game_dir patch_dir out_dir [localecode]
 
-2. 运行wolftrans生成待翻译的txt文件到`patch_dir`。如
+`game_dir`为原游戏文件夹；`patch_dir`存放可翻译文本txt文件；`out_dir`存放整合了可翻译文本后重新输出的游戏数据文件。
 
-        ruby d:\wolftrans\bin\wolftrans "D:\transwork" "D:\transwork\patch" "D:\transwork\output" "GBK"
+1. 运行wolftrans生成待翻译的txt文件到`patch_dir`。如
 
-   一个典型的`patch_dir`文件夹结构如下：
-
-        ─patch
-            ├─Assets
-            └─Patch
-                └─dump
-                    ├─common
-                    ├─db
-                    │  ├─CDataBase
-                    │  └─DataBase
-                    └─mps
-   需要翻译的是里面的txt文件
+        ruby d:\wolftrans\bin\wolftrans "D:\gamename" "D:\transwork\patch" "D:\transwork\output" "GBK"
    
-3. 用文本编辑软件（如Notepad++）打开txt文件，进行翻译工作。如`patch_dir`\Patch\dump\mps\Map000.txt
-
+2. 用文本编辑软件（如Notepad++）打开`patch_dir`里的txt文件，进行翻译并保存。如`patch_dir`\Patch\dump\mps\Map000.txt
+   
    WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
-
-        > BEGIN STRING
-        【はじめから】
-        > CONTEXT MPS:Map000/events/0/pages/1/36/Picture < UNTRANSLATED
-        
-        > END STRING
-
+ 
+       > BEGIN STRING
+       【はじめから】
+       > CONTEXT MPS:Map000/events/0/pages/1/36/Picture < UNTRANSLATED
+ 
+       > END STRING
+ 
    \> BEGIN STRING和> CONTEXT之间的日语原文，不要动。翻译者只需要将译文填入最后一个> CONTEXT 和> END STRING之间即可
-
-        > BEGIN STRING
-        【はじめから】
-        > CONTEXT MPS:Map000/events/0/pages/1/36/Picture < UNTRANSLATED
-        【从头开始】
-        > END STRING
+ 
+       > BEGIN STRING
+       【はじめから】
+       > CONTEXT MPS:Map000/events/0/pages/1/36/Picture < UNTRANSLATED
+       【从头开始】
+       > END STRING
         
-4. 再次运行wolftrans（命令和步骤2完全一样不变）。程序将读取翻译修改后的txt文件内容，将其整合后重新生成游戏数据文件到`out_dir`。如
+3. 再次运行wolftrans（命令和步骤1完全一样）。程序将读取翻译修改后的txt文件内容，将其整合后重新生成游戏数据文件到`out_dir`。如
 
-        ruby d:\wolftrans\bin\wolftrans "D:\transwork" "D:\transwork\patch" "D:\transwork\output" "GBK"
+        ruby d:\wolftrans\bin\wolftrans "D:\gamename" "D:\transwork\patch" "D:\transwork\output" "GBK"
  
 **警告：**  
 **软件每次运行都会先清空`out_dir`的所有内容，请小心**  
 **为了避免意外，防止翻译成果付之东流，请经常备份`patch_dir`里的内容。比如在再次运行wolftrans根据已翻译txt文件重新生成游戏数据文件前**  
 **作者对使用此软件造成的任何损失概不负责**  
 
-5. 复制`out_dir`下Data\BasicData\和Data\MapData\文件夹的内容到Wolf RPG Editor文件夹下Data\下的相应文件夹。如
+4. 复制`out_dir`下Data\BasicData\和Data\MapData\文件夹的内容到新游戏文件夹`gamelocale_dir`下Data\下的相应文件夹。如
 
-        copy "D:\transwork\output\Data\MapData\*" "D:\WOLF_RPG_Editor2\Data\MapData\"
-        copy "D:\transwork\output\Data\BasicData\*" "D:\WOLF_RPG_Editor2\Data\BasicData\"
+        copy "D:\transwork\output\Data\MapData\*" "D:\gamenamelocale\Data\MapData\"
+        copy "D:\transwork\output\Data\BasicData\*" "D:\gamenamelocale\Data\BasicData\"
 
-6. 运行Wolf RPG Editor文件夹下的game.exe开始测试
+5. 运行新游戏文件夹`gamelocale_dir`下的game.exe开始测试
 ![](ScreenShot/ScreenShot_1.png)
 ![](ScreenShot/ScreenShot_2.png)
 
-之后重复步骤4至步骤6，直至所有需翻译内容翻译、测试、校对完毕。为方便操作，可以将这些内容写成一个test.bat文件，每次运行bat文件即可。
+之后重复步骤2至步骤5，直至所有需翻译内容翻译、测试、校对完毕。为方便操作，可以将这些内容写成一个test.bat文件，每次运行bat文件即可。
 
-    ruby d:\wolftrans\bin\wolftrans "D:\transwork" "D:\transwork\patch" "D:\transwork\output" "GBK"
-    copy "D:\transwork\output\Data\MapData\*" "D:\WOLF_RPG_Editor2\Data\MapData\"
-    copy "D:\transwork\output\Data\BasicData\*" "D:\WOLF_RPG_Editor2\Data\BasicData\"
-    start /b D:\WOLF_RPG_Editor2\game.exe
+    ruby d:\wolftrans\bin\wolftrans "D:\gamename" "D:\transwork\patch" "D:\transwork\output" "GBK"
+    copy "D:\transwork\output\Data\MapData\*" "D:\gamenamelocale\Data\MapData\"
+    copy "D:\transwork\output\Data\BasicData\*" "D:\gamenamelocale\Data\BasicData\"
+    start /b D:\gamenamelocale\game.exe
 
 ## 五、其他需要翻译的内容
 比如图片等，请使用图片编辑软件处理，如iPhotoDraw
 
-其他未尽事宜请直接使用Wolf RPG Editor处理
+其他未尽事宜请直接使用Wolf RPG Editor(Editor.exe)处理，可参考https://sstm.moe/topic/62134-wolf-rpg-editor（狗头）汉化方法及相关问题
 
 ## 六、打包
 Wolf RPG Editor里选择（ファイル-->ゲーマデータの作成），生成的游戏文件在Wolf RPG Editor文件夹下与游戏标题同名的文件夹内。
