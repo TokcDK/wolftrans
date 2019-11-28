@@ -20,13 +20,18 @@ WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
     > CONTEXT MPS:Map000/events/0/pages/1/36/Picture < UNTRANSLATED
     【从头开始】
     > END STRING
+
 ## 安装
 下载所有源代码后解压到一个文件夹即可
 
 另外本工具使用ruby编写，你需要安装ruby，这里下载http://rubyinstaller.org/downloads/
 
 ## 使用  
-确认你已经安装好了ruby. 用ruby运行Wolf Trans安装文件夹里的**bin\wolftrans**，例如:
+1.运行wolftrans，从游戏数据文件中抽出可翻译内容生成txt文本文件  
+2.打开txt文件，翻译、编辑、保存  
+3.再次运行wolftrans（命令参数与第1步完全相同），根据txt文本文件中的翻译后内容重新生成游戏数据文件
+
+确认你已经安装好了ruby，需要使用ruby运行Wolf Trans安装文件夹里的**bin\wolftrans**，例如:
     
     ruby d:\wolftrans\bin\wolftrans 
     
@@ -129,7 +134,11 @@ The source code for the translation patch file used in the sample image above is
 All of the translatable game text is first extracted by Wolf Trans into plaintext files, which can then be edited by a translator. Refer to RPG Maker Trans's documentation for now for a more thorough explanation, as the two share very similar designs.
 
 ## Usage  
-Make sure you have already installed ruby. Run **bin\wolftrans** in Wolf Trans installed folder using **ruby**. For exsample:
+1.Run wolftrans, extract translatable content from game data files and generate txt text files.  
+2.Open txt files, translate, edit and save.  
+3.Run wolftrans again(command parameters are same as step 1), rebuild game data files according to translated content in txt files.
+
+Make sure you have already installed ruby. You need to run **bin\wolftrans** in Wolf Trans installed folder by using **ruby**. For exsample:
     
     ruby d:\wolftrans\bin\wolftrans 
     
@@ -149,11 +158,11 @@ Currently, Wolf Trans can be invoked with the command line:
 
 When destination translated language is English:
 
-    ruby d:\wolftrans\bin\wolftrans "D:\transwork" "D:\transwork\patch" "D:\transwork\output"
+    ruby d:\wolftrans\bin\wolftrans "D:\gamename" "D:\transwork\patch" "D:\transwork\output"
     
 When destination translated language is Simplified Chinese:
 
-    ruby d:\wolftrans\bin\wolftrans "D:\transwork" "D:\transwork\patch" "D:\transwork\output" "GBK"
+    ruby d:\wolftrans\bin\wolftrans "D:\gamename" "D:\transwork\patch" "D:\transwork\output" "GBK"
 
 ## Disclaimer
 

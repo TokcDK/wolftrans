@@ -5,7 +5,8 @@ require 'wolftrans'
 
 if ARGV.size < 3
   STDERR.puts "usage: wolftrans game_dir patch_dir out_dir [localecode]"
-  STDERR.printf("example: wolftrans d:\\hanhua d:\\hanhua\\patch d:\\hanhua\\output GBK\n")
+  STDERR.printf("example:\n")
+  STDERR.printf('wolftrans "D:\gamename" "D:\transwork\patch" "D:\\transwork\output" GBK'"\n")
   STDERR.printf("\n")
   STDERR.puts "localecode: default(not set) for English"
   STDERR.puts "Set Encoding CodePage for other languages."
