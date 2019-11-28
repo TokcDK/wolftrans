@@ -3,7 +3,7 @@
 
 * 以下为Wolf Trans软件自身说明。Wolf RPG游戏汉化翻译全流程说明请看这里[READMEfullcourse.md](READMEfullcourse.md)
 
-Wolf Trans是一个Wolf RPG游戏的辅助翻译工具，用于减少汉化/本地化Wolf RPG游戏的难度和工作量。它将游戏数据文件(.project, .dat, .mps)中所有可翻译的文字内容抽出为txt文本文件，翻译者翻译编辑txt文件后，它再将翻译后的文字整合进数据文件重新输出(.project, .dat, .mps)。
+Wolf Trans是一个Wolf RPG游戏的汉化工具/辅助翻译工具，用于减少汉化/本地化Wolf RPG游戏的难度和工作量。它将游戏数据文件(.project, .dat, .mps)中所有可翻译的文字内容抽出为txt文本文件，翻译者翻译编辑txt文件后，它再将翻译后的文字整合进数据文件重新输出(.project, .dat, .mps)。
 
 WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
 
