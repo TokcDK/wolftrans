@@ -35,7 +35,7 @@ WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
     
     ruby d:\wolftrans\bin\wolftrans 
     
-wolftrans的用法和参数如下:
+wolftrans是一个控制台应用程序，以命令行的方式运行。用法和参数如下:
 
     wolftrans game_dir patch_dir out_dir [localecode]
 
