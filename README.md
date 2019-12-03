@@ -69,6 +69,7 @@ wolftrans是一个控制台应用程序，以命令行的方式运行。用法�
                 │  ├─CDataBase
                 │  └─DataBase
                 └─mps
+                
 需要翻译的是里面的txt文件
 
 本软件会将相同的文字内容抽出为同一个翻译段，并将它放在首次出现的地方对应的txt文件中。比如游戏数据中多个地方都有“はい”这句话，抽出的翻译段如下，存于`patch_dir`\Patch\dump\mps\Map000.txt 中
@@ -96,6 +97,7 @@ wolftrans是一个控制台应用程序，以命令行的方式运行。用法�
     > CONTEXT MPS:Map004/events/5/pages/2/4/Choices
     好
     > END STRING
+    
 就能实现同一原文不同译文。
 
 另外，本软件生成的可翻译txt的内容不一定是必须要翻译的。ADV/AVG游戏一般不需要翻译RPG游戏特有的升级、战斗等相关内容，如这些文件：
