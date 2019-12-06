@@ -23,7 +23,7 @@ WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
     > END STRING
 
 * 项目及下载：<https://github.com/springsin0/wolftrans/>
-* 关联文章：[Wolf RPG游戏汉化翻译全流程说明]({% post_url 2019-12-01-Wolf RPG游戏汉化翻译全流程说明 %})
+* 关联文章：[Wolf RPG游戏汉化翻译全流程说明](https://springsin0.github.io/blog/2019-12-01-Wolf-RPG%E6%B8%B8%E6%88%8F%E6%B1%89%E5%8C%96%E7%BF%BB%E8%AF%91%E5%85%A8%E6%B5%81%E7%A8%8B%E8%AF%B4%E6%98%8E.html)
 
 ## 安装
 下载所有源代码后解压到一个文件夹即可
