@@ -1,9 +1,16 @@
 # Wolf Trans
-(English description is *Below*, please pull down)
-
-* 以下为Wolf Trans软件自身说明。Wolf RPG游戏汉化翻译全流程说明请看这里[READMEfullcourse.md](READMEfullcourse.md)
+---
+layout: post
+title:  Wolf RPG游戏汉化工具Wolf Trans
+date:   2019-12-01 12:00:00 +0800
+categories: 汉化
+tags: [工具, 翻译, 游戏]
+---
+(English description is [*Below*](#wolf-trans), please pull down)
 
 Wolf Trans是一个Wolf RPG游戏的汉化工具/辅助翻译工具，用于减少汉化/本地化Wolf RPG游戏的难度和工作量。它将游戏数据文件(.project, .dat, .mps)中所有可翻译的文字内容抽出为txt文本文件，翻译者翻译编辑txt文件后，它再将翻译后的文字整合进数据文件重新输出(.project, .dat, .mps)。
+此版本以原作者Eliza的开源项目<https://github.com/elizagamedev/wolftrans> 为基础略作修改，支持中文汉字，原版只能使用日文汉字。
+<!-- more -->
 
 WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
 
@@ -20,6 +27,9 @@ WolfTrans抽出的txt是由一个个类似这样的翻译段组成的：
     > CONTEXT MPS:Map000/events/0/pages/1/36/Picture < UNTRANSLATED
     【从头开始】
     > END STRING
+
+* 项目及下载：<https://github.com/springsin0/wolftrans/>
+* 关联文章：[Wolf RPG游戏汉化翻译全流程说明]({% post_url 2019-12-01-Wolf RPG游戏汉化翻译全流程说明 %})
 
 ## 安装
 下载所有源代码后解压到一个文件夹即可
@@ -109,12 +119,13 @@ wolftrans是一个控制台应用程序，以命令行的方式运行。用法�
 
 ----------------------------------------------------------------------------------------------------
 # Wolf Trans
-## A translation tool for Wolf RPG Editor games
+A translation tool for Wolf RPG Editor games
 ![](http://i.imgur.com/fzuJjsU.png)
 
 ## Summary
 Wolf Trans is a set of tools to aid in the translation of games made using
-[Wolf RPG Editor](http://www.silversecond.com/WolfRPGEditor/). The syntax and functionality is inspired primarily by the [RPG Maker Trans](http://rpgmakertrans.bitbucket.org/) project.
+[Wolf RPG Editor](http://www.silversecond.com/WolfRPGEditor/). The syntax and functionality is inspired primarily by the [RPG Maker Trans](http://rpgmakertrans.bitbucket.org/) project.  
+This version is based on original author Eliza's project <https://github.com/elizagamedev/wolftrans>, made some small changes, support Chinese charaters, original version can only use Japanese charaters.
 
 ## Installation
 Download all source code zip file and uncompress to a folder.
